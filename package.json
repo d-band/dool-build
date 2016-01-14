@@ -2,9 +2,32 @@
   "name": "dool-build",
   "version": "0.0.1",
   "description": "d-band tool & dev tool",
-  "main": "index.js",
+  "bin": {
+    "dool-build": "cli.js"
+  },
   "scripts": {
     "test": "make test"
+  },
+  "dependencies": {
+    "atpl-loader": "~0.1.0",
+    "autoprefixer-loader": "~3.1.0",
+    "babel-core": "~6.3.17",
+    "babel-core-resolve-enhance": "^0.1.2",
+    "babel-loader": "~6.2.0",
+    "babel-preset-es2015": "~6.3.13",
+    "babel-preset-react": "~6.3.13",
+    "babel-preset-stage-0": "~6.3.13",
+    "commander": "~2.9.0",
+    "css-loader": "~0.23.0",
+    "extract-text-webpack-plugin": "~1.0.1",
+    "file-loader": "~0.8.4",
+    "json-loader": "~0.5.4",
+    "less": "~2.5.3",
+    "less-loader": "~2.2.0",
+    "map-json-webpack-plugin": "~1.0.0",
+    "rimraf": "~2.5.0",
+    "url-loader": "~0.5.6",
+    "webpack": "~1.12.2"
   },
   "repository": {
     "type": "git",
@@ -12,13 +35,18 @@
   },
   "keywords": [
     "d-band",
+    "dev",
     "tool",
-    "dev-tool"
+    "dool",
+    "dool-build"
   ],
   "author": "d-band",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/d-band/dool-build/issues"
   },
-  "homepage": "https://github.com/d-band/dool-build#readme"
+  "homepage": "https://github.com/d-band/dool-build#readme",
+  "engines": {
+    "node": ">= 4"
+  }
 }
