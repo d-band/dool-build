@@ -6,7 +6,7 @@
     "dool-build": "cli.js"
   },
   "scripts": {
-    "test": "jest",
+    "test": "node --harmony node_modules/.bin/jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
