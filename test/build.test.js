@@ -4,11 +4,16 @@ const join = require('path').join;
 const fs = require('fs');
 const build = require('../lib/build');
 const assign = require('object-assign');
+const pwd = process.cwd();
 
 function assert(actualDir, _expect) {
   const expectDir = join(__dirname, 'expect', _expect);
-  const actualFiles = fs.readdirSync(actualDir);
-  const expectFiles = fs.readdirSync(expectDir);
+  const actualFiles = fs.readdirSync(actualDir).filter(f => {
+    return !/\./.test(f);
+  });
+  const expectFiles = fs.readdirSync(expectDir).filter(f => {
+    return !/\./.test(f);
+  });
 
   expect(actualFiles.length).toEqual(expectFiles.length);
 
@@ -32,7 +37,8 @@ function testBuild(args, fixture) {
 
     build(assign({}, defaultConfig, args), err => {
       if (err) throw new Error(err);
-      // assert(outputPath, fixture);
+      assert(outputPath, fixture);
+      process.chdir(pwd);
       resolve();
     });
   });
