@@ -26,3 +26,5 @@ tmp/
 _site
 coverage
 test/fixtures/**/dist
+test/fixtures/**/coverage
+test/fixtures/**/node_modules
