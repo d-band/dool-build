@@ -62,6 +62,7 @@
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "testDirectoryName": "test",
     "testFileExtensions": ["test.js"],
-    "collectCoverage": true
+    "collectCoverage": true,
+    "verbose": true
   }
 }
