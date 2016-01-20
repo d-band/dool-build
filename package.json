@@ -1,9 +1,9 @@
 {
   "name": "dool-build",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "d-band tool & dev tool",
   "bin": {
-    "dool-build": "node --harmony cli.js"
+    "dool-build": "cli.js"
   },
   "scripts": {
     "test": "node --harmony node_modules/.bin/jest",
@@ -24,6 +24,7 @@
     "file-loader": "~0.8.4",
     "gauge": "^1.2.4",
     "glob": "^6.0.4",
+    "harmonize": "^1.4.4",
     "json-loader": "~0.5.4",
     "less": "~2.5.3",
     "less-loader": "~2.2.0",
