@@ -9,10 +9,10 @@ const pwd = process.cwd();
 function assert(actualDir, _expect) {
   const expectDir = join(__dirname, 'expect', _expect);
   const actualFiles = fs.readdirSync(actualDir).filter(f => {
-    return !/\./.test(f);
+    return !/^\./.test(f);
   });
   const expectFiles = fs.readdirSync(expectDir).filter(f => {
-    return !/\./.test(f);
+    return !/^\./.test(f);
   });
 
   expect(actualFiles.length).toEqual(expectFiles.length);

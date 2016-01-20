@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "atpl-loader": "~0.1.0",
-    "autoprefixer-loader": "~3.2.0",
+    "autoprefixer": "^6.3.1",
     "babel-core": "~6.4.0",
     "babel-core-resolve-enhance": "^0.1.2",
     "babel-loader": "~6.2.0",
@@ -28,6 +28,7 @@
     "less": "~2.5.3",
     "less-loader": "~2.2.0",
     "map-json-webpack-plugin": "~1.0.0",
+    "postcss-loader": "^0.8.0",
     "rimraf": "~2.5.0",
     "url-loader": "~0.5.6",
     "webpack": "~1.12.11"
@@ -61,7 +62,9 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "testDirectoryName": "test",
-    "testFileExtensions": ["test.js"],
+    "testFileExtensions": [
+      "test.js"
+    ],
     "collectCoverage": true,
     "verbose": true
   }
