@@ -58,7 +58,8 @@
     "babel-jest": "^6.0.1",
     "coveralls": "^2.11.6",
     "jest-cli": "^0.8.2",
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "webpack-md5-hash": "0.0.4"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
