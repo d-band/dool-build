@@ -2,20 +2,14 @@ jest.autoMockOff();
 
 const join = require('path').join;
 const fs = require('fs');
+const glob = require('glob');
 const build = require('../lib/build');
 const assign = require('object-assign');
 const pwd = process.cwd();
 
 function assert(actualDir, _expect) {
   const expectDir = join(__dirname, 'expect', _expect);
-  const actualFiles = fs.readdirSync(actualDir).filter(f => {
-    return !/^\./.test(f);
-  });
-  const expectFiles = fs.readdirSync(expectDir).filter(f => {
-    return !/^\./.test(f);
-  });
-
-  expect(actualFiles.length).toEqual(expectFiles.length);
+  const actualFiles = glob.sync('**/*', { cwd: actualDir, nodir: true });
 
   actualFiles.forEach(file => {
     const actualFile = fs.readFileSync(join(actualDir, file), 'utf-8');
@@ -55,6 +49,9 @@ describe('lib/build', () => {
   pit('should support custom loader', () => {
     return testBuild({}, 'custom-loader');
   });
+  pit('should support custom path', () => {
+    return testBuild({ hash:true }, 'custom-path');
+  });
   pit('should support define', () => {
     process.env.NODE_ENV = 'debug';
     return testBuild({}, 'define');
@@ -70,6 +67,9 @@ describe('lib/build', () => {
   });
   pit('should support load on demand', () => {
     return testBuild({}, 'load-on-demand');
+  });
+  pit('should support map hash', () => {
+    return testBuild({ hash:true }, 'map-hash');
   });
   pit('should support mix entry and files', () => {
     return testBuild({}, 'mix-entry');

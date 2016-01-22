@@ -28,7 +28,7 @@
     "json-loader": "~0.5.4",
     "less": "~2.5.3",
     "less-loader": "~2.2.0",
-    "map-json-webpack-plugin": "~1.0.0",
+    "map-json-webpack-plugin": "^1.1.0",
     "postcss-loader": "^0.8.0",
     "rimraf": "~2.5.0",
     "url-loader": "~0.5.6",
