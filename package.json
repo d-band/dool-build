@@ -10,7 +10,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
-    "atpl-loader": "~0.1.0",
+    "atpl-loader": "~0.2.0",
     "autoprefixer": "~6.3.2",
     "babel-core": "~6.5.1",
     "babel-core-resolve-enhance": "~0.1.2",
