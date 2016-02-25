@@ -26,7 +26,6 @@
     "file-loader": "~0.8.5",
     "gauge": "~1.2.5",
     "glob": "~7.0.0",
-    "harmonize": "~1.4.4",
     "json-loader": "~0.5.4",
     "less": "~2.6.0",
     "less-loader": "~2.2.2",
