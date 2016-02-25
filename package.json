@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
@@ -22,6 +22,7 @@
     "babel-preset-stage-0": "~6.5.0",
     "commander": "~2.9.0",
     "css-loader": "~0.23.1",
+    "es6-promise": "~3.1.2",
     "extract-text-webpack-plugin": "~1.0.1",
     "file-loader": "~0.8.5",
     "gauge": "~1.2.5",
