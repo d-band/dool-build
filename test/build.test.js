@@ -3,7 +3,7 @@ jest.autoMockOff();
 const join = require('path').join;
 const fs = require('fs');
 const glob = require('glob');
-const build = require('../lib/build');
+const build = require('../src/build');
 const assign = require('object-assign');
 const pwd = process.cwd();
 
@@ -38,7 +38,7 @@ function testBuild(args, fixture) {
   });
 }
 
-describe('lib/build', () => {
+describe('src/build', () => {
 
   pit('should support base64', () => {
     return testBuild({}, 'base64');

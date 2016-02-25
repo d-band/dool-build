@@ -6,6 +6,8 @@
     "dool-build": "cli.js"
   },
   "scripts": {
+    "build": "rm -rf lib && babel src --out-dir lib",
+    "prepublish": "npm run build",
     "test": "node --harmony node_modules/.bin/jest",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
@@ -55,6 +57,7 @@
     "node": ">= 4"
   },
   "devDependencies": {
+    "babel-cli": "^6.5.1",
     "babel-jest": "^6.0.1",
     "coveralls": "^2.11.6",
     "jest-cli": "^0.8.2",
