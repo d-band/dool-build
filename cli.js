@@ -14,5 +14,5 @@ program
   .parse(process.argv);
 
 program.cwd = process.cwd();
-require("harmonize")();
+require('harmonize')();
 require('./lib/build')(program);
