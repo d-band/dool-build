@@ -1,80 +1,101 @@
-jest.autoMockOff();
+'use strict';
 
 const join = require('path').join;
 const fs = require('fs');
 const glob = require('glob');
 const build = require('../src/build');
 const assign = require('object-assign');
-const pwd = process.cwd();
+const expect = require('chai').expect;
 
 function assert(actualDir, _expect) {
   const expectDir = join(__dirname, 'expect', _expect);
-  const actualFiles = glob.sync('**/*', { cwd: actualDir, nodir: true });
+  const actualFiles = glob.sync('**/*', {
+    cwd: actualDir,
+    nodir: true
+  });
 
   actualFiles.forEach(file => {
     const actualFile = fs.readFileSync(join(actualDir, file), 'utf-8');
     const expectFile = fs.readFileSync(join(expectDir, file), 'utf-8');
-    expect(actualFile).toEqual(expectFile);
+    expect(actualFile).to.equal(expectFile);
   });
 }
 
-function testBuild(args, fixture) {
-  return new Promise(resolve => {
-    const cwd = join(__dirname, 'fixtures', fixture);
-    const outputPath = join(cwd, 'dist');
-    process.chdir(cwd);
+function testBuild(args, fixture, done) {
+  const cwd = join(__dirname, 'fixtures', fixture);
+  const outputPath = join(cwd, 'dist');
+  const defaultConfig = {
+    cwd,
+    compress: false,
+  };
 
-    const defaultConfig = {
-      cwd,
-      compress: false,
-    };
+  build(assign({}, defaultConfig, args), err => {
+    assert(outputPath, fixture);
+    done(err);
+  });
+}
 
-    build(assign({}, defaultConfig, args), err => {
-      if (err) throw new Error(err);
-      assert(outputPath, fixture);
-      process.chdir(pwd);
-      resolve();
+describe('src/build', function() {
+  this.timeout(5000);
+
+  it('should support base64', (done) => {
+    testBuild({}, 'base64', done);
+  });
+  it('should support common file', (done) => {
+    testBuild({}, 'common-file', done);
+  });
+  it('should support custom loader', (done) => {
+    testBuild({}, 'custom-loader', done);
+  });
+  it('should support custom path', (done) => {
+    testBuild({
+      hash: true
+    }, 'custom-path', done);
+  });
+  it('should support define', (done) => {
+    process.env.NODE_ENV = 'debug';
+    testBuild({}, 'define', done);
+  });
+  it('should support es6', (done) => {
+    testBuild({}, 'es6', done);
+  });
+  it('should support global', (done) => {
+    testBuild({}, 'global', done);
+  });
+  it('should support less', (done) => {
+    testBuild({}, 'less', done);
+  });
+  it('should support load on demand', (done) => {
+    testBuild({}, 'load-on-demand', done);
+  });
+  it('should support map hash', (done) => {
+    testBuild({
+      hash: true
+    }, 'map-hash', done);
+  });
+  it('should support compress default', (done) => {
+    testBuild({
+      compress: true
+    }, 'compress', done);
+  });
+  it('should support mix entry and files', (done) => {
+    testBuild({}, 'mix-entry', done);
+  });
+  it('should support react', (done) => {
+    testBuild({}, 'react', done);
+  });
+  it('should throw webpack missing error', (done) => {
+    console.error = process.exit = function() {};
+    testBuild({}, 'missing', (errors) => {
+      expect(errors.length).to.equal(1);
+      done();
     });
   });
-}
-
-describe('src/build', () => {
-
-  pit('should support base64', () => {
-    return testBuild({}, 'base64');
-  });
-  pit('should support common file', () => {
-    return testBuild({}, 'common-file');
-  });
-  pit('should support custom loader', () => {
-    return testBuild({}, 'custom-loader');
-  });
-  pit('should support custom path', () => {
-    return testBuild({ hash:true }, 'custom-path');
-  });
-  pit('should support define', () => {
-    process.env.NODE_ENV = 'debug';
-    return testBuild({}, 'define');
-  });
-  pit('should support es6', () => {
-    return testBuild({}, 'es6');
-  });
-  pit('should support global', () => {
-    return testBuild({}, 'global');
-  });
-  pit('should support less', () => {
-    return testBuild({}, 'less');
-  });
-  pit('should support load on demand', () => {
-    return testBuild({}, 'load-on-demand');
-  });
-  pit('should support map hash', () => {
-    return testBuild({ hash:true }, 'map-hash');
-  });
-  pit('should support mix entry and files', () => {
-    return testBuild({}, 'mix-entry');
-  });
-  pit('should support react', () => {
-    return testBuild({}, 'react');
+  it('should throw error', (done) => {
+    console.error = process.exit = function() {};
+    testBuild({}, 'error', (err) => {
+      expect(err).to.be.an('error');
+      done();
+    });
   });
 });

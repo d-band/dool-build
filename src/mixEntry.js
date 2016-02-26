@@ -20,19 +20,17 @@ module.exports = function(files, entry, args) {
   if (Array.isArray(files)) {
     files.forEach(function(output) {
       [...glob.sync(output, {
-        cwd: args.cwd
+        cwd: args.cwd,
+        nodir: true
       })].forEach(function(item) {
-        let f = path.join(args.cwd, item);
-        if (stat(f).isFile()) {
-          let key = null;
-          let ext = path.extname(item);
-          if (ext === '.css' || ext === '.less') {
-            key = item.replace(/\.(css|less)$/, '.css');
-          } else {
-            key = item.replace(new RegExp(ext + '$'), '');
-          }
-          newEntry[formatName(key)] = item;
+        let key = null;
+        let ext = path.extname(item);
+        if (ext === '.css' || ext === '.less') {
+          key = item.replace(/\.(css|less)$/, '.css');
+        } else {
+          key = item.replace(new RegExp(ext + '$'), '');
         }
+        newEntry[formatName(key)] = item;
       });
     });
   }

@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
     "prepublish": "npm run build",
-    "test": "node --harmony node_modules/.bin/jest",
+    "test": "node --harmony node_modules/.bin/istanbul cover _mocha -- -R spec",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
@@ -58,19 +58,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",
-    "babel-jest": "^6.0.1",
+    "chai": "^3.5.0",
     "coveralls": "^2.11.6",
-    "jest-cli": "^0.8.2",
+    "mocha": "^2.4.5",
     "object-assign": "^4.0.1",
     "webpack-md5-hash": "0.0.5"
-  },
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testDirectoryName": "test",
-    "testFileExtensions": [
-      "test.js"
-    ],
-    "collectCoverage": true,
-    "verbose": true
   }
 }

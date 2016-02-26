@@ -26,8 +26,9 @@ function base(args) {
   };
 
   return {
+    context: args.cwd,
     output: {
-      path: join(process.cwd(), './dist/'),
+      path: join(args.cwd, './dist/'),
       filename: jsFileName,
       chunkFilename: jsFileName,
     },

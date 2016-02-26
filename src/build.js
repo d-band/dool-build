@@ -16,38 +16,34 @@ module.exports = function(args, callback) {
 
   const compiler = webpack(cfg);
 
-  let lastHash = null;
-
   function doneHandler(err, stats) {
     if (!args.watch) {
       // Do not keep cache anymore
       compiler.purgeInputFileSystem();
     }
     if (err) {
-      lastHash = null;
       console.error(err.stack || err);
-      if (err.details) console.error(err.details);
-      if (!args.watch) {
-        process.on('exit', function() {
-          process.exit(1);
-        });
-      }
-      return;
+      process.on('exit', function() {
+        process.exit(1);
+      });
+      return callback && callback(err);
     }
-    if (stats.hash !== lastHash) {
-      lastHash = stats.hash;
-      console.log(stats.toString({
-        colors: true,
-        chunks: false,
-        modules: false,
-        chunkModules: false,
-        children: false,
-        hash: false,
-        version: false
-      }));
 
-      callback && callback(err);
+    console.log(stats.toString({
+      colors: true,
+      chunks: false,
+      modules: false,
+      chunkModules: false,
+      children: false,
+      hash: false,
+      version: false
+    }));
+
+    if (stats.hasErrors()) {
+      err = stats.toJson().errors;
     }
+
+    callback && callback(err);
   }
 
   // Run compiler.
