@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "0.0.19",
+  "version": "1.0.0",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "atpl-loader": "~0.2.0",
-    "autoprefixer": "~6.3.2",
-    "babel-core": "~6.5.1",
+    "autoprefixer": "~6.3.3",
+    "babel-core": "~6.5.2",
     "babel-core-resolve-enhance": "~0.1.2",
-    "babel-loader": "~6.2.2",
+    "babel-loader": "~6.2.4",
     "babel-preset-es2015": "~6.5.0",
     "babel-preset-react": "~6.5.0",
     "babel-preset-stage-0": "~6.5.0",
@@ -25,16 +25,16 @@
     "es6-promise": "~3.1.2",
     "extract-text-webpack-plugin": "~1.0.1",
     "file-loader": "~0.8.5",
-    "gauge": "~1.2.5",
+    "gauge": "~1.2.7",
     "glob": "~7.0.0",
     "json-loader": "~0.5.4",
     "less": "~2.6.0",
     "less-loader": "~2.2.2",
     "map-json-webpack-plugin": "~1.1.0",
-    "postcss-loader": "~0.8.0",
-    "rimraf": "~2.5.1",
+    "postcss-loader": "~0.8.1",
+    "rimraf": "~2.5.2",
     "url-loader": "~0.5.7",
-    "webpack": "~1.12.13"
+    "webpack": "~1.12.14"
   },
   "repository": {
     "type": "git",
@@ -57,12 +57,12 @@
     "node": ">= 4"
   },
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "chai": "^3.5.0",
-    "coveralls": "^2.11.6",
-    "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
-    "object-assign": "^4.0.1",
-    "webpack-md5-hash": "0.0.5"
+    "babel-cli": "~6.5.1",
+    "chai": "~3.5.0",
+    "coveralls": "~2.11.8",
+    "istanbul": "~0.4.2",
+    "mocha": "~2.4.5",
+    "object-assign": "~4.0.1",
+    "webpack-md5-hash": "~0.0.5"
   }
 }
