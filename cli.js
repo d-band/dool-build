@@ -15,7 +15,4 @@ program
 
 program.cwd = process.cwd();
 
-// Fix https://github.com/postcss/postcss#nodejs-010-and-the-promise-api
-require('es6-promise').polyfill();
-
 require('./lib/build')(program);
