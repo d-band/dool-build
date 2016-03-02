@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf lib && babel src --out-dir lib",
     "prepublish": "npm run build",
-    "test": "node --harmony node_modules/.bin/istanbul cover _mocha -- -R spec",
+    "test": "istanbul cover _mocha -- --compilers js:babel-register -R spec",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "dependencies": {
@@ -58,9 +58,10 @@
   },
   "devDependencies": {
     "babel-cli": "~6.6.0",
+    "babel-register": "~6.6.0",
     "chai": "~3.5.0",
     "coveralls": "~2.11.8",
-    "istanbul": "~0.4.2",
+    "istanbul": "next",
     "mocha": "~2.4.5",
     "object-assign": "~4.0.1",
     "webpack-md5-hash": "~0.0.5"
