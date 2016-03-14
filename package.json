@@ -57,8 +57,8 @@
     "node": ">= 4"
   },
   "devDependencies": {
-    "babel-cli": "~6.6.0",
-    "babel-register": "~6.6.0",
+    "babel-cli": "~6.6.5",
+    "babel-register": "~6.7.2",
     "chai": "~3.5.0",
     "coveralls": "~2.11.8",
     "istanbul": "next",
