@@ -3,10 +3,10 @@
 // Fix https://github.com/postcss/postcss#nodejs-010-and-the-promise-api
 require('es6-promise').polyfill();
 
-const rimraf = require('rimraf');
-const webpack = require('webpack');
-const config = require('./config');
-const handler = require('./handler');
+import rimraf from 'rimraf';
+import webpack from 'webpack';
+import config from './config';
+import handler from './handler';
 
 module.exports = function(args, callback) {
   // Get config.

@@ -22,4 +22,4 @@ CssEntryPlugin.prototype.apply = function(compiler) {
   });
 };
 
-module.exports = CssEntryPlugin;
+export default CssEntryPlugin;

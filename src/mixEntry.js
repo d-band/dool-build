@@ -1,14 +1,13 @@
 'use strict';
 
-const stat = require('fs').statSync;
-const glob = require('glob');
-const path = require('path');
+import glob from 'glob';
+import path from 'path';
 
 function formatName(name) {
   return name.replace(/^\.\//g, '');
 }
 
-module.exports = function(files, entry, args) {
+export default function(files, entry, args) {
   let newEntry = entry || {};
 
   if (typeof newEntry === 'string' || Array.isArray(newEntry)) {

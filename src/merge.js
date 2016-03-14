@@ -1,13 +1,13 @@
 'use strict';
 
-const existsSync = require('fs').existsSync;
+import { existsSync } from 'fs';
 
 /**
  * Merge custom config from `webpack.config.js`.
  * @param baseCfg {Object}
  * @param customCfg {String}
  */
-module.exports = function merge(baseCfg, customCfg) {
+export default function merge(baseCfg, customCfg) {
   if (!existsSync(customCfg)) {
     return baseCfg;
   }

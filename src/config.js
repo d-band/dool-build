@@ -1,31 +1,22 @@
 'use strict';
 
-const join = require('path').join;
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import { join } from 'path';
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-const merge = require('./merge');
-const mixEntry = require('./mixEntry');
-const CssEntryPlugin = require('./CssEntryPlugin');
-
-try {
-  require('babel-core-resolve-enhance')({
-    dirname: __dirname,
-  });
-} catch (e) {
-  console.error(`[Error] ${e.message}`);
-}
+import babelrc from './babelrc';
+import merge from './merge';
+import mixEntry from './mixEntry';
+import CssEntryPlugin from './CssEntryPlugin';
 
 function base(args) {
   const pkg = require(join(args.cwd, 'package.json'));
 
   const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
   const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
-  const babelQuery = {
-    presets: ['es2015', 'react', 'stage-0']
-  };
 
   return {
+    babel: babelrc,
     context: args.cwd,
     output: {
       path: join(args.cwd, './dist/'),
@@ -47,11 +38,11 @@ function base(args) {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query: babelQuery,
+        query: babelrc,
       }, {
         test: /\.jsx$/,
         loader: 'babel',
-        query: babelQuery,
+        query: babelrc,
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(

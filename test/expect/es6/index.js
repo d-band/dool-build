@@ -102,6 +102,7 @@
 
 	var B = 'b';
 	exports.default = B;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
