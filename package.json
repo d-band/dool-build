@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
@@ -26,12 +26,12 @@
     "extract-text-webpack-plugin": "~1.0.1",
     "file-loader": "~0.8.5",
     "gauge": "~1.2.7",
-    "glob": "~7.0.0",
+    "glob": "~7.0.3",
     "json-loader": "~0.5.4",
-    "less": "~2.6.0",
+    "less": "~2.6.1",
     "less-loader": "~2.2.2",
     "map-json-webpack-plugin": "~1.1.0",
-    "postcss-loader": "~0.8.1",
+    "postcss-loader": "~0.8.2",
     "rimraf": "~2.5.2",
     "url-loader": "~0.5.7",
     "webpack": "~1.12.14"
