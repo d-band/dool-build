@@ -8,7 +8,7 @@ import webpack from 'webpack';
 import config from './config';
 import handler from './handler';
 
-module.exports = function(args, callback) {
+export default function(args, callback) {
   // Get config.
   const cfg = config(args);
 
