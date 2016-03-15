@@ -25,7 +25,7 @@
     "es6-promise": "~3.1.2",
     "extract-text-webpack-plugin": "~1.0.1",
     "file-loader": "~0.8.5",
-    "gauge": "~1.2.7",
+    "gauge": "~2.2.1",
     "glob": "~7.0.3",
     "json-loader": "~0.5.4",
     "less": "~2.6.1",
