@@ -98,7 +98,8 @@ function npm3Hack(cfg) {
   }
   return cfg;
 }
-module.exports = function getConfig(args) {
+
+export default function getConfig(args) {
   let cfg = base(args);
 
   cfg = npm3Hack(cfg);

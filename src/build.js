@@ -6,13 +6,13 @@ require('es6-promise').polyfill();
 import rimraf from 'rimraf';
 import webpack from 'webpack';
 import config from './config';
-import handler from './handler';
+import progress from './progress';
 
 export default function(args, callback) {
   // Get config.
   const cfg = config(args);
 
-  cfg.plugins.push(new webpack.ProgressPlugin(handler));
+  cfg.plugins.push(progress());
 
   // Clean output dir first.
   rimraf.sync(cfg.output.path);
