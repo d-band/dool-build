@@ -14,18 +14,19 @@ export default function() {
   const bar = new ProgressBar(`${green('[:bar]')} :percent ${cyan(':msg')}`, {
     complete: '=',
     incomplete: ' ',
-    width: 20,
-    total: 100,
+    total: 20,
     clear: true
   });
+
+  const maxLen = bar.stream.columns - 27;
 
   return new ProgressPlugin(function handler(percentage, msg) {
     if (percentage === 1) {
       bar.terminate();
-      console.log(green('Build completed.\n'));
+      console.log(green('Build completed  🎉\n'));
     } else {
       bar.update(percentage, {
-        msg: msg
+        msg: msg.substring(0, maxLen)
       });
     }
   });
