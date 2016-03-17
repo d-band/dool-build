@@ -1,58 +1,35 @@
 'use strict';
 
-// Fix https://github.com/postcss/postcss#nodejs-010-and-the-promise-api
-require('es6-promise').polyfill();
-
 import rimraf from 'rimraf';
-import webpack from 'webpack';
 import config from './config';
 import progress from './progress';
+import worker from './worker';
+import Pool from 'fork-pool';
 
 export default function(args, callback) {
   // Get config.
-  const cfg = config(args);
+  let cfgs = config(args);
 
-  cfg.plugins.push(progress());
+  cfgs.forEach(cfg => {
+    cfg.plugins.push(progress());
+    // Clean output dir first.
+    rimraf.sync(cfg.output.path);
+  });
 
-  // Clean output dir first.
-  rimraf.sync(cfg.output.path);
+  if (args.cluster) {
+    let pool = new Pool(`${__dirname}/worker.js`, null, null, {});
 
-  const compiler = webpack(cfg);
-
-  function doneHandler(err, stats) {
-    if (!args.watch) {
-      // Do not keep cache anymore
-      compiler.purgeInputFileSystem();
+    for (let i = 0; i < cfgs.length; i++) {
+      pool.enqueue({
+        index: i,
+        args: args
+      }, function(err, res) {});
     }
-    if (err) {
-      console.error(err.stack || err);
-      process.on('exit', function() {
-        process.exit(1);
-      });
-      return callback && callback(err);
-    }
-
-    console.log(stats.toString({
-      colors: true,
-      chunks: !!args.verbose,
-      modules: !!args.verbose,
-      chunkModules: !!args.verbose,
-      children: !!args.verbose,
-      hash: !!args.verbose,
-      version: !!args.verbose
-    }));
-
-    if (stats.hasErrors()) {
-      err = stats.toJson().errors;
-    }
-
-    callback && callback(err);
-  }
-
-  // Run compiler.
-  if (args.watch) {
-    compiler.watch(args.watch || 200, doneHandler);
+    
+    pool.drain(function() {
+      callback && callback();
+    });
   } else {
-    compiler.run(doneHandler);
+    worker(args, cfgs, callback);
   }
 }

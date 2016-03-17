@@ -3,7 +3,7 @@
 const join = require('path').join;
 const fs = require('fs');
 const glob = require('glob');
-const build = require('../src/build');
+const build = require('../lib/build');
 const assign = require('object-assign');
 const expect = require('chai').expect;
 
@@ -40,6 +40,9 @@ describe('src/build', function() {
 
   it('should support base64', (done) => {
     testBuild({}, 'base64', done);
+  });
+  it('should support cluster', (done) => {
+    testBuild({ cluster: true }, 'cluster', done);
   });
   it('should support common file', (done) => {
     testBuild({}, 'common-file', done);

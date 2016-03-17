@@ -143,6 +143,6 @@ export default function getConfig(args) {
   }
 
   cfg = merge(cfg, join(args.cwd, args.config || 'webpack.config.js'), webpack);
-
-  return cfg;
+  
+  return Array.isArray(cfg) ? cfg : [cfg];
 }
