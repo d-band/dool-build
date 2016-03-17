@@ -34,12 +34,12 @@ export default function(args, callback) {
 
     console.log(stats.toString({
       colors: true,
-      chunks: false,
-      modules: false,
-      chunkModules: false,
-      children: false,
-      hash: false,
-      version: false
+      chunks: !!args.verbose,
+      modules: !!args.verbose,
+      chunkModules: !!args.verbose,
+      children: !!args.verbose,
+      hash: !!args.verbose,
+      version: !!args.verbose
     }));
 
     if (stats.hasErrors()) {
