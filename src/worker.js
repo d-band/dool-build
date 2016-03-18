@@ -19,6 +19,15 @@ if (process.send) {
 export default function run(args, cfg, callback) {
   const compiler = webpack(cfg);
 
+  // Hack: remove extract-text-webpack-plugin log
+  compiler.plugin('done', function(stats) {
+    stats.stats.forEach((stat) => {
+      stat.compilation.children = stat.compilation.children.filter((child) => {
+        return child.name !== 'extract-text-webpack-plugin';
+      });
+    });
+  });
+
   function doneHandler(err, stats) {
     if (!args.watch) {
       // Do not keep cache anymore
