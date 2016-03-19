@@ -10,7 +10,7 @@ if (process.send) {
   process.on('message', function(msg) {
     console.log(`[Worker] Start #${msg.index + 1}`);
     const cfg = config(msg.args)[msg.index];
-    run(msg.args, cfg, function(err) {
+    run(msg.args, [cfg], function(err) {
       process.send(err ? 'fail' : 'done');
     });
   });
