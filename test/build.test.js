@@ -36,7 +36,7 @@ function testBuild(args, fixture, done) {
 }
 
 describe('src/build', function() {
-  this.timeout(5000);
+  this.timeout(0);
 
   it('should support base64', (done) => {
     testBuild({}, 'base64', done);
