@@ -9,6 +9,8 @@ export default function() {
   const fmt = `${green('[:bar]')} :percent ${cyan(':msg')}`;
 
   return new ProgressPlugin(function handler(percent, msg) {
+    if (!stream.isTTY) return;
+    
     let beforeLen = Math.floor(percent * total);
     let afterLen = total - beforeLen;
     let before = Array(beforeLen).join('=');
