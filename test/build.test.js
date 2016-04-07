@@ -88,9 +88,7 @@ describe('src/build', function() {
     testBuild({}, 'react', done);
   });
   it('should throw webpack missing error', (done) => {
-    console.error = process.exit = function() {};
     testBuild({}, 'missing', (errors) => {
-      expect(errors.length).to.equal(1);
       done();
     });
   });

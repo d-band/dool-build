@@ -3,21 +3,26 @@
 // Fix https://github.com/postcss/postcss#nodejs-010-and-the-promise-api
 require('es6-promise').polyfill();
 
+import { red } from './color';
 import webpack from 'webpack';
 import config from './config';
+import progress from './progress';
 
 if (process.send) {
   process.on('message', function(msg) {
-    console.log(`[Worker] Start #${msg.index + 1}`);
     const cfg = config(msg.args)[msg.index];
-    run(msg.args, [cfg], function(err) {
-      process.send(err ? 'fail' : 'done');
+    run(msg.args, [cfg], function(err, stats) {
+      process.send(err ? red(err.stack) : stats);
     });
   });
 }
 
-export default function run(args, cfg, callback) {
-  const compiler = webpack(cfg);
+export default function run(args, cfgs, callback) {
+  // add progress plugin
+  cfgs.forEach(cfg => {
+    cfg.plugins.push(progress());
+  });
+  const compiler = webpack(cfgs);
 
   // Hack: remove extract-text-webpack-plugin log
   args.verbose || compiler.plugin('done', function(stats) {
@@ -29,19 +34,20 @@ export default function run(args, cfg, callback) {
   });
 
   function doneHandler(err, stats) {
-    if (!args.watch) {
-      // Do not keep cache anymore
-      compiler.purgeInputFileSystem();
-    }
     if (err) {
-      console.error(err.stack || err);
       process.on('exit', function() {
-        process.exit(1);
+        process.exit(2);
       });
       return callback && callback(err);
     }
 
-    console.log(stats.toString({
+    if (stats.hasErrors()) {
+      process.on('exit', function() {
+        process.exit(1);
+      });
+    }
+
+    callback && callback(null, stats.toString({
       colors: true,
       children: true,
       chunks: !!args.verbose,
@@ -50,12 +56,6 @@ export default function run(args, cfg, callback) {
       hash: !!args.verbose,
       version: !!args.verbose
     }));
-
-    if (stats.hasErrors()) {
-      err = stats.toJson().errors;
-    }
-
-    callback && callback(err);
   }
 
   // Run compiler.
