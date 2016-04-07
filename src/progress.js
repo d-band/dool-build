@@ -2,24 +2,29 @@
 
 import { green, cyan } from './color';
 import { ProgressPlugin } from 'webpack';
-import ProgressBar from "progress";
 
 export default function() {
-  const bar = new ProgressBar(`${green('[:bar]')} :percent ${cyan(':msg')}`, {
-    complete: '=',
-    incomplete: ' ',
-    total: 20,
-    clear: true
-  });
+  const total = 20;
+  const stream = process.stderr;
+  const fmt = `${green('[:bar]')} :percent ${cyan(':msg')}`;
 
-  const maxLen = bar.stream.columns - 27;
+  return new ProgressPlugin(function handler(percent, msg) {
+    let beforeLen = Math.floor(percent * total);
+    let afterLen = total - beforeLen;
+    let before = Array(beforeLen).join('=');
+    let after = Array(afterLen).join(' ');
 
-  return new ProgressPlugin(function handler(percentage, msg) {
-    bar.update(percentage, {
-      msg: msg.substring(0, maxLen)
-    });
-    if (percentage === 1) {
-      bar.terminate();
+    let str = fmt
+      .replace(':bar', before + after)
+      .replace(':percent', (percent * 99).toFixed(0) + '%')
+      .replace(':msg', msg.substring(0, stream.columns - 27));
+
+    stream.write('\x1b[1G' + str);
+    stream.clearLine(1);
+
+    if (percent === 1) {
+      stream.clearLine();
+      stream.cursorTo(0);
     }
   });
 }
