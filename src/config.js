@@ -25,11 +25,11 @@ function base(args) {
     },
     devtool: args.devtool,
     resolve: {
-      modulesDirectories: ['node_modules', join(__dirname, '../node_modules')],
+      modules: ['node_modules', join(__dirname, '../node_modules')],
       extensions: ['', '.js', '.jsx'],
     },
     resolveLoader: {
-      modulesDirectories: ['node_modules', join(__dirname, '../node_modules')],
+      modules: ['node_modules', join(__dirname, '../node_modules')],
     },
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
@@ -79,13 +79,14 @@ function base(args) {
         loader: 'atpl'
       }]
     },
-    postcss: [require('autoprefixer')],
+    postcss: [require('autoprefixer')({
+      browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8']
+    })],
     plugins: [
       new ExtractTextPlugin(cssFileName, {
         disable: false,
         allChunks: true,
       }),
-      new webpack.optimize.OccurenceOrderPlugin(),
       new CssEntryPlugin()
     ],
   };
@@ -94,7 +95,7 @@ function base(args) {
 function npm3Hack(cfg) {
   var doolPath = join(__dirname, '../..');
   if (~doolPath.indexOf('dool')) {
-    cfg.resolveLoader.modulesDirectories.push(doolPath);
+    cfg.resolveLoader.modules.push(doolPath);
   }
   return cfg;
 }
@@ -143,6 +144,6 @@ export default function getConfig(args) {
   }
 
   cfg = merge(cfg, join(args.cwd, args.config || 'webpack.config.js'), webpack);
-  
+
   return Array.isArray(cfg) ? cfg : [cfg];
 }

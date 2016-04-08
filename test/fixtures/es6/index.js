@@ -10,11 +10,14 @@ class User extends Model {
   }
 
   sayHello() {
-    alert("Hello World!");
+    console.log("Hello World!");
   }
 }
 
 import B from './b';
-// alert(B);
+
+console.log(B);
+
+console.log(require('./a'));
 
 new User();
