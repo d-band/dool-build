@@ -63,7 +63,7 @@
     "coveralls": "~2.11.9",
     "istanbul": "1.0.0-alpha.2",
     "mocha": "~2.4.5",
-    "object-assign": "~4.0.1",
+    "object-assign": "~4.1.0",
     "webpack-md5-hash": "~0.0.5"
   }
 }
