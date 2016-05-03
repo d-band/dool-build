@@ -7,23 +7,23 @@
 
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].e;
+/******/ 			return installedModules[moduleId].exports;
 
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
-/******/ 			e: {},
 /******/ 			i: moduleId,
-/******/ 			l: false
+/******/ 			l: false,
+/******/ 			exports: {}
 /******/ 		};
 
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.e, module, module.e, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
 
 /******/ 		// Return the exports of the module
-/******/ 		return module.e;
+/******/ 		return module.exports;
 /******/ 	}
 
 
@@ -42,7 +42,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -52,11 +52,11 @@
 
 	var A = 'A';
 	exports.default = A;
-	module.e = exports['default'];
+	module.exports = exports['default'];
 
 /***/ },
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
@@ -66,7 +66,7 @@
 
 	var B = 'b';
 	exports.default = B;
-	module.e = exports['default'];
+	module.exports = exports['default'];
 
 /***/ },
 /* 2 */
