@@ -25,7 +25,7 @@ function testBuild(args, fixture, done) {
   var cwd = join(__dirname, 'fixtures', fixture);
   var outputPath = join(cwd, 'dist');
   var defaultConfig = {
-    cwd,
+    cwd: cwd,
     compress: false,
   };
 
