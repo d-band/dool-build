@@ -28,7 +28,7 @@
     "fork-pool": "~2.0.0",
     "glob": "~7.0.3",
     "json-loader": "~0.5.4",
-    "less": "~2.6.1",
+    "less": "~2.7.0",
     "less-loader": "~2.2.3",
     "map-json-webpack-plugin": "~1.1.0",
     "postcss-loader": "~0.9.1",
