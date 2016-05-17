@@ -101,12 +101,16 @@
 
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
+
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ function(module, exports) {
 
+	"use strict";
 	'use strict';
 
 	console.log('util');

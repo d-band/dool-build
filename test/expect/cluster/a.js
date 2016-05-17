@@ -44,6 +44,7 @@
 /* 0 */
 /***/ function(module, exports) {
 
+	"use strict";
 	'use strict';
 
 	console.log('a.js');

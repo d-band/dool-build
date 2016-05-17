@@ -45,6 +45,7 @@
 /***/ function(module, exports) {
 
 	"use strict";
+	"use strict";
 
 	var HelloMessage = React.createClass({
 	  displayName: "HelloMessage",
