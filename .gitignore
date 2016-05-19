@@ -25,6 +25,7 @@ tmp/
 .yml
 _site
 coverage
+.nyc_output/
 test/fixtures/**/dist
 test/fixtures/**/coverage
 test/fixtures/**/node_modules
