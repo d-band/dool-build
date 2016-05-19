@@ -108,4 +108,13 @@ describe('src/build', function() {
       done();
     });
   });
+  it('should throw merge error', function(done) {
+    try {
+      console.error = process.exit = function() {};
+      testBuild({}, 'merge-error');
+    } catch (e) {
+      expect(e).to.be.an('error');
+      done();
+    }
+  });
 });

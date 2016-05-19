@@ -6,9 +6,14 @@ import config from './config';
 import worker from './worker';
 import Pool from 'fork-pool';
 
-function log(str) {
+function info(str) {
   console.log(green('\nBuild completed  🎉\n'));
   console.log(str);
+}
+
+function error(str) {
+  console.error(red('\nBuild failed  💥\n'));
+  console.error(red(str));
 }
 
 export default function(args, callback) {
@@ -34,12 +39,12 @@ export default function(args, callback) {
     }
 
     pool.drain(function() {
-      log(output.join('\n'));
+      info(output.join('\n'));
       callback && callback();
     });
   } else {
     worker(args, cfgs, function(err, stats) {
-      log(err ? red(err.stack) : stats);
+      err ? error(err.stack) : info(stats);
       callback && callback(err);
     });
   }
