@@ -34,6 +34,7 @@ function testBuild(args, fixture, done) {
   var defaultConfig = {
     cwd: cwd,
     compress: false,
+    outputPath: outputPath
   };
 
   build(assign({}, defaultConfig, args), function(err) {
