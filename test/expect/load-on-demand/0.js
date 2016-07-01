@@ -3,10 +3,10 @@ webpackJsonp([0],[
 /* 1 */
 /***/ function(module, exports) {
 
-	"use strict";
-	'use strict';
+"use strict";
+'use strict';
 
-	module.exports = 'b';
+module.exports = 'b';
 
 /***/ }
 ]);

@@ -33,6 +33,21 @@
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 
+/******/ 	// identity function for calling harmory imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+
+/******/ 	// define getter function for harmory exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		Object.defineProperty(exports, name, {
+/******/ 			configurable: false,
+/******/ 			enumerable: true,
+/******/ 			get: getter
+/******/ 		});
+/******/ 	};
+
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 
@@ -44,10 +59,10 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	'use strict';
+"use strict";
+'use strict';
 
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./missing\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./missing\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 /***/ }
 /******/ ]);
