@@ -37,12 +37,10 @@ function base(args) {
       loaders: [{
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
-        query: babelrc,
+        loader: 'babel'
       }, {
         test: /\.jsx$/,
-        loader: 'babel',
-        query: babelrc,
+        loader: 'babel'
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -88,7 +86,7 @@ function base(args) {
         allChunks: true,
       }),
       new CssEntryPlugin()
-    ],
+    ]
   };
 }
 
@@ -122,7 +120,7 @@ export default function getConfig(args) {
         compress: {
           warnings: false,
         },
-      }),
+      })
     ];
   }
 
