@@ -1,5 +1,9 @@
+'use strict';
+
+import { tmpdir } from 'os';
+
 export default {
-  cacheDirectory: true,
+  cacheDirectory: tmpdir(),
   presets: [
     require.resolve('babel-preset-es2015'),
     require.resolve('babel-preset-react'),
