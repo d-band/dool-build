@@ -24,7 +24,7 @@
     "commander": "~2.9.0",
     "css-loader": "~0.23.1",
     "es6-promise": "~3.2.1",
-    "extract-text-webpack-plugin": "~2.0.0-beta.1",
+    "extract-text-webpack-plugin": "~2.0.0-beta.2",
     "file-loader": "~0.9.0",
     "fork-pool": "~2.0.0",
     "glob": "~7.0.5",
@@ -35,7 +35,7 @@
     "postcss-loader": "~0.9.1",
     "rimraf": "~2.5.2",
     "url-loader": "~0.5.7",
-    "webpack": "~2.1.0-beta.17"
+    "webpack": "~2.1.0-beta.19"
   },
   "repository": {
     "type": "git",

@@ -81,7 +81,8 @@ function base(args) {
       browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8']
     })],
     plugins: [
-      new ExtractTextPlugin(cssFileName, {
+      new ExtractTextPlugin({
+        filename: cssFileName,
         disable: false,
         allChunks: true,
       }),
@@ -114,12 +115,11 @@ export default function getConfig(args) {
   if (args.compress) {
     cfg.plugins = [...cfg.plugins,
       new webpack.optimize.UglifyJsPlugin({
-        output: {
-          ascii_only: true,
-        },
-        compress: {
-          warnings: false,
-        },
+        sourceMap: false
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
       })
     ];
   }
