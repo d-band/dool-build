@@ -115,7 +115,7 @@ export default function getConfig(args) {
   if (args.compress) {
     cfg.plugins = [...cfg.plugins,
       new webpack.optimize.UglifyJsPlugin({
-        sourceMap: false
+        sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
       }),
       new webpack.LoaderOptionsPlugin({
         minimize: true,

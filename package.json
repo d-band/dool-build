@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "2.0.0-beta.5",
+  "version": "2.0.0-beta.6",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
@@ -15,7 +15,7 @@
   "dependencies": {
     "atpl-loader": "~0.2.0",
     "autoprefixer": "~6.3.6",
-    "babel-core": "~6.10.4",
+    "babel-core": "~6.11.4",
     "babel-loader": "~6.2.4",
     "babel-plugin-add-module-exports": "~0.2.1",
     "babel-preset-es2015-webpack": "~6.4.1",
@@ -58,7 +58,7 @@
     "node": ">= 4"
   },
   "devDependencies": {
-    "babel-cli": "~6.10.1",
+    "babel-cli": "~6.11.4",
     "babel-preset-es2015": "^6.9.0",
     "chai": "~3.5.0",
     "coveralls": "~2.11.11",
