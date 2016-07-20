@@ -58,7 +58,7 @@
     "node": ">= 4"
   },
   "devDependencies": {
-    "babel-cli": "~6.10.1",
+    "babel-cli": "~6.11.4",
     "chai": "~3.5.0",
     "coveralls": "~2.11.9",
     "mocha": "~2.5.1",
