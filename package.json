@@ -6,7 +6,7 @@
     "dool-build": "cli.js"
   },
   "scripts": {
-    "build": "rm -rf lib && babel src --out-dir lib",
+    "build": "rimraf lib && babel src --out-dir lib",
     "prepublish": "npm run build",
     "test": "nyc mocha",
     "report": "nyc report --reporter=html",
@@ -14,17 +14,17 @@
   },
   "dependencies": {
     "atpl-loader": "~0.2.0",
-    "autoprefixer": "~6.3.6",
-    "babel-core": "~6.11.4",
+    "autoprefixer": "~6.4.0",
+    "babel-core": "~6.13.0",
     "babel-loader": "~6.2.4",
     "babel-plugin-add-module-exports": "~0.2.1",
-    "babel-preset-es2015-webpack": "~6.4.1",
+    "babel-preset-es2015-webpack": "~6.4.2",
     "babel-preset-react": "~6.11.1",
     "babel-preset-stage-0": "~6.5.0",
     "commander": "~2.9.0",
     "css-loader": "~0.23.1",
     "es6-promise": "~3.2.1",
-    "extract-text-webpack-plugin": "~2.0.0-beta.2",
+    "extract-text-webpack-plugin": "~2.0.0-beta.3",
     "file-loader": "~0.9.0",
     "fork-pool": "~2.0.0",
     "glob": "~7.0.5",
@@ -33,9 +33,9 @@
     "less-loader": "~2.2.3",
     "map-json-webpack-plugin": "~1.1.0",
     "postcss-loader": "~0.9.1",
-    "rimraf": "~2.5.2",
+    "rimraf": "~2.5.4",
     "url-loader": "~0.5.7",
-    "webpack": "~2.1.0-beta.19"
+    "webpack": "~2.1.0-beta.20"
   },
   "repository": {
     "type": "git",
@@ -59,11 +59,11 @@
   },
   "devDependencies": {
     "babel-cli": "~6.11.4",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015": "^6.13.0",
     "chai": "~3.5.0",
-    "coveralls": "~2.11.11",
-    "mocha": "~2.5.3",
-    "nyc": "~7.0.0",
+    "coveralls": "~2.11.12",
+    "mocha": "~3.0.1",
+    "nyc": "~7.1.0",
     "object-assign": "~4.1.0",
     "webpack-md5-hash": "~0.0.5"
   },
