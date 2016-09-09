@@ -125,7 +125,7 @@ var User = function (_Model) {
   function User() {
     _classCallCheck(this, User);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(User).call(this));
+    var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this));
 
     _this.sayHello();
     return _this;
