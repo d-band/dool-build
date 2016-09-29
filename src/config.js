@@ -16,7 +16,6 @@ function base(args) {
   const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
 
   return {
-    babel: babelrc,
     context: args.cwd,
     output: {
       path: join(args.cwd, './dist/'),
@@ -26,7 +25,7 @@ function base(args) {
     devtool: args.devtool,
     resolve: {
       modules: ['node_modules', join(__dirname, '../node_modules')],
-      extensions: ['', '.js', '.jsx'],
+      extensions: ['*', '.js', '.jsx'],
     },
     resolveLoader: {
       modules: ['node_modules', join(__dirname, '../node_modules')],
@@ -44,13 +43,13 @@ function base(args) {
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
-          'css?sourceMap&-restructuring!postcss'
-        ),
+          'css?sourceMap!postcss'
+        )
       }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
           'css?sourceMap!postcss!less?sourceMap'
-        ),
+        )
       }, {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&minetype=application/font-woff'
@@ -77,16 +76,22 @@ function base(args) {
         loader: 'atpl'
       }]
     },
-    postcss: [require('autoprefixer')({
-      browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4']
-    })],
     plugins: [
       new ExtractTextPlugin({
         filename: cssFileName,
         disable: false,
         allChunks: true,
       }),
-      new CssEntryPlugin()
+      new CssEntryPlugin(),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          context: args.cwd,
+          babel: babelrc,
+          postcss: [require('autoprefixer')({
+            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4']
+          })]
+        }
+      })
     ]
   };
 }
