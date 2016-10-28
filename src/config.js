@@ -33,7 +33,7 @@ function base(args) {
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
     module: {
-      loaders: [{
+      rules: [{
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel'
@@ -123,7 +123,6 @@ export default function getConfig(args) {
         sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
       }),
       new webpack.LoaderOptionsPlugin({
-        minimize: true,
         debug: false
       })
     ];
@@ -132,7 +131,9 @@ export default function getConfig(args) {
   cfg.plugins = [
     ...cfg.plugins,
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+      }
     }),
     new webpack.optimize.DedupePlugin()
   ];
