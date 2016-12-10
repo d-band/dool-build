@@ -141,9 +141,9 @@
 "use strict";
 'use strict';
 
-__webpack_require__.e/* require */(0).catch(function(err) { __webpack_require__.oe(err); }).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(0)]; (function (b) {
+__webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(0)]; (function (b) {
   console.log(b);
-}.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+}.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
 
 /***/ }
 /******/ ]);

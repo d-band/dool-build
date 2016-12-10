@@ -36,44 +36,44 @@ function base(args) {
       rules: [{
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel-loader'
       }, {
         test: /\.jsx$/,
-        loader: 'babel'
+        loader: 'babel-loader'
       }, {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
-          'css?sourceMap!postcss'
+          'css-loader?sourceMap!postcss-loader'
         )
       }, {
         test: /\.less$/,
         loader: ExtractTextPlugin.extract(
-          'css?sourceMap!postcss!less?sourceMap'
+          'css-loader?sourceMap!postcss-loader!less-loader?sourceMap'
         )
       }, {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=application/font-woff'
+        loader: 'url-loader?limit=10000&minetype=application/font-woff'
       }, {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=application/font-woff'
+        loader: 'url-loader?limit=10000&minetype=application/font-woff'
       }, {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=application/octet-stream'
+        loader: 'url-loader?limit=10000&minetype=application/octet-stream'
       }, {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file'
+        loader: 'file-loader'
       }, {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=image/svg+xml'
+        loader: 'url-loader?limit=10000&minetype=image/svg+xml'
       }, {
         test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
-        loader: 'url?limit=10000'
+        loader: 'url-loader?limit=10000'
       }, {
         test: /\.json$/,
-        loader: 'json'
+        loader: 'json-loader'
       }, {
         test: /\.atpl$/,
-        loader: 'atpl'
+        loader: 'atpl-loader'
       }]
     },
     plugins: [
@@ -134,8 +134,7 @@ export default function getConfig(args) {
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
       }
-    }),
-    new webpack.optimize.DedupePlugin()
+    })
   ];
 
   // Output map.json if hash.
