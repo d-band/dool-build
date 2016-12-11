@@ -118,7 +118,8 @@ export default function getConfig(args) {
 
   // Config if no --no-compress.
   if (args.compress) {
-    cfg.plugins = [...cfg.plugins,
+    cfg.plugins = [
+      ...cfg.plugins,
       new webpack.optimize.UglifyJsPlugin({
         sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
       }),
