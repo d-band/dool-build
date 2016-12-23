@@ -91,6 +91,12 @@ describe('src/build', function() {
       compress: true
     }, 'compress', done);
   });
+  it('should support sourcemap', function(done) {
+    testBuild({
+      compress: true,
+      devtool: 'sourcemap'
+    }, 'sourcemap', done);
+  });
   it('should support mix entry and files', function(done) {
     testBuild({}, 'mix-entry', done);
   });

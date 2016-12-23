@@ -1,10 +1,10 @@
 webpackJsonp([0],[
 /* 0 */,
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-'use strict';
+
 
 console.log('fn-b');
 
@@ -14,7 +14,7 @@ console.log('fn-b');
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-'use strict';
+
 
 __webpack_require__(0);
 

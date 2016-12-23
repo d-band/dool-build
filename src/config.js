@@ -124,7 +124,8 @@ export default function getConfig(args) {
         sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
       }),
       new webpack.LoaderOptionsPlugin({
-        debug: false
+        debug: false,
+        minimize: true
       })
     ];
   }
