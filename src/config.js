@@ -94,7 +94,12 @@ function base(args) {
           })]
         }
       })
-    ]
+    ],
+    performance: {
+      hints: args.compress ? 'warning' : false,
+      maxAssetSize: 400000,
+      maxEntrypointSize: 400000
+    }
   };
 }
 
