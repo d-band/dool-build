@@ -84,6 +84,8 @@ function base(args) {
       }),
       new CssEntryPlugin(),
       new webpack.LoaderOptionsPlugin({
+        debug: !args.compress,
+        minimize: args.compress,
         options: {
           context: args.cwd,
           babel: babelrc,
@@ -122,10 +124,6 @@ export default function getConfig(args) {
       ...cfg.plugins,
       new webpack.optimize.UglifyJsPlugin({
         sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
-      }),
-      new webpack.LoaderOptionsPlugin({
-        debug: false,
-        minimize: true
       })
     ];
   }
