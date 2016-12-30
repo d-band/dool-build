@@ -70,9 +70,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
 // NODE_ENV=debug dool build
 if (true) {
   alert('debug mode');

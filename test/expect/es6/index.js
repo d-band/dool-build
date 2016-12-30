@@ -71,14 +71,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+Object.defineProperty(exports, "__esModule", { value: true });
 
 var A = 'A';
-exports.default = A;
+/* harmony default export */ exports["default"] = A;
 module.exports = exports['default'];
 
 /***/ },
@@ -87,13 +83,8 @@ module.exports = exports['default'];
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var B = 'b';
-exports.default = B;
+/* harmony default export */ exports["a"] = B;
 module.exports = exports['default'];
 
 /***/ },
@@ -101,15 +92,9 @@ module.exports = exports['default'];
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__b__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _b = __webpack_require__(1);
-
-var _b2 = _interopRequireDefault(_b);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
@@ -143,7 +128,9 @@ var User = function (_Model) {
   return User;
 }(Model);
 
-console.log(_b2.default);
+
+
+console.log(__WEBPACK_IMPORTED_MODULE_0__b__["a" /* default */]);
 
 console.log(__webpack_require__(0));
 

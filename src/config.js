@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import babelrc from './babelrc';
+import loaders from './loaders';
 import merge from './merge';
 import mixEntry from './mixEntry';
 import CssEntryPlugin from './CssEntryPlugin';
@@ -33,48 +34,7 @@ function base(args) {
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
     module: {
-      rules: [{
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
-      }, {
-        test: /\.jsx$/,
-        loader: 'babel-loader'
-      }, {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'css-loader?sourceMap!postcss-loader'
-        )
-      }, {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'css-loader?sourceMap!postcss-loader!less-loader?sourceMap'
-        )
-      }, {
-        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&minetype=application/font-woff'
-      }, {
-        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&minetype=application/font-woff'
-      }, {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&minetype=application/octet-stream'
-      }, {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader'
-      }, {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&minetype=image/svg+xml'
-      }, {
-        test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
-        loader: 'url-loader?limit=10000'
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader'
-      }, {
-        test: /\.atpl$/,
-        loader: 'atpl-loader'
-      }]
+      rules: loaders()
     },
     plugins: [
       new ExtractTextPlugin({
@@ -82,23 +42,21 @@ function base(args) {
         disable: false,
         allChunks: true,
       }),
-      new CssEntryPlugin(),
-      new webpack.LoaderOptionsPlugin({
-        debug: !args.compress,
-        minimize: args.compress,
-        options: {
-          context: args.cwd,
-          babel: babelrc,
-          postcss: [require('autoprefixer')({
-            browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4']
-          })]
-        }
-      })
+      new CssEntryPlugin()
     ],
     performance: {
       hints: args.compress ? 'warning' : false,
       maxAssetSize: 400000,
       maxEntrypointSize: 400000
+    },
+    // More options
+    babel: babelrc(),
+    postcss: {
+      plugins: [
+        require('autoprefixer')({
+          browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4']
+        })
+      ]
     }
   };
 }
@@ -153,5 +111,34 @@ export default function getConfig(args) {
 
   cfg = merge(cfg, join(args.cwd, args.config || 'webpack.config.js'), webpack);
 
-  return Array.isArray(cfg) ? cfg : [cfg];
+  const cfgs = Array.isArray(cfg) ? cfg : [cfg];
+  cfgs.forEach(cfg => {
+    for (const rule of cfg.module.rules) {
+      if (rule.key) {
+        delete rule.key;
+      }
+    }
+    // More options
+    const options = {
+      context: args.cwd
+    }
+    if (cfg.babel) {
+      options.babel = cfg.babel;
+      delete cfg.babel;
+    }
+    if (cfg.postcss) {
+      options.postcss = cfg.postcss;
+      delete cfg.postcss;
+    }
+    cfg.plugins = [
+      ...cfg.plugins,
+      new webpack.LoaderOptionsPlugin({
+        debug: !args.compress,
+        minimize: args.compress,
+        options: options
+      })
+    ];
+  });
+
+  return cfgs;
 }

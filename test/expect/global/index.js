@@ -76,9 +76,6 @@ module.exports = jQuery;
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
 var $ = __webpack_require__(0);
 $(function () {
     $('#box').hide(333).show(333);
