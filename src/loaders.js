@@ -26,7 +26,7 @@ export default () => {
     )
   }, {
     key: 'font',
-    test: /\.otf|ttf|woff2?|eot(\?\S*)?$/,
+    test: /\.(otf|ttf|woff2?|eot)(\?\S*)?$/,
     loader: 'url-loader',
     query: {
       limit: 10000
