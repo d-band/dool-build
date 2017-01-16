@@ -68,7 +68,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 // NODE_ENV=debug dool build
 if (true) {
@@ -77,5 +77,5 @@ if (true) {
   alert('production mode');
 }
 
-/***/ }
+/***/ })
 /******/ ]);

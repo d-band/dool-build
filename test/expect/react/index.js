@@ -68,7 +68,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 var HelloMessage = React.createClass({
   displayName: "HelloMessage",
@@ -85,5 +85,5 @@ var HelloMessage = React.createClass({
 
 ReactDOM.render(React.createElement(HelloMessage, { name: "John" }), mountNode);
 
-/***/ }
+/***/ })
 /******/ ]);
