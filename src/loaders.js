@@ -28,21 +28,21 @@ export default () => {
     key: 'font',
     test: /\.(otf|ttf|woff2?|eot)(\?\S*)?$/,
     loader: 'url-loader',
-    query: {
+    options: {
       limit: 10000
     }
   }, {
     key: 'svg',
     test: /\.svg(\?\S*)?$/,
     loader: 'url-loader',
-    query: {
+    options: {
       limit: 10000
     }
   }, {
     key: 'image',
     test: /\.(gif|png|jpe?g)(\?\S*)?$/i,
     loader: 'url-loader',
-    query: {
+    options: {
       limit: 10000
     }
   }, {
