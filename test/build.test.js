@@ -15,9 +15,16 @@ function assert(actualDir, _expect) {
   });
 
   actualFiles.forEach(function(file) {
-    var actualFile = fs.readFileSync(join(actualDir, file), 'utf-8');
-    var expectFile = fs.readFileSync(join(expectDir, file), 'utf-8');
-    expect(actualFile).to.equal(expectFile);
+    var actualFile = join(actualDir, file);
+    var expectFile = join(expectDir, file);
+
+    if (process.env.GEN_EXPECT) {
+      fs.writeFileSync(expectFile, fs.readFileSync(actualFile));
+    }
+
+    var actualData = fs.readFileSync(actualFile, 'utf-8');
+    var expectData = fs.readFileSync(expectFile, 'utf-8');
+    expect(actualData).to.equal(expectData);
   });
 }
 
@@ -27,6 +34,7 @@ function testBuild(args, fixture, done) {
   var defaultConfig = {
     cwd: cwd,
     compress: false,
+    outputPath: outputPath
   };
 
   build(assign({}, defaultConfig, args), function(err) {
@@ -42,7 +50,9 @@ describe('src/build', function() {
     testBuild({}, 'base64', done);
   });
   it('should support cluster', function(done) {
-    testBuild({ cluster: true }, 'cluster', done);
+    testBuild({
+      cluster: true
+    }, 'cluster', done);
   });
   it('should support common file', function(done) {
     testBuild({}, 'common-file', done);
@@ -81,6 +91,12 @@ describe('src/build', function() {
       compress: true
     }, 'compress', done);
   });
+  it('should support sourcemap', function(done) {
+    testBuild({
+      compress: true,
+      devtool: 'sourcemap'
+    }, 'sourcemap', done);
+  });
   it('should support mix entry and files', function(done) {
     testBuild({}, 'mix-entry', done);
   });
@@ -98,5 +114,14 @@ describe('src/build', function() {
       expect(err).to.be.an('error');
       done();
     });
+  });
+  it('should throw merge error', function(done) {
+    try {
+      console.error = process.exit = function() {};
+      testBuild({}, 'merge-error');
+    } catch (e) {
+      expect(e).to.be.an('error');
+      done();
+    }
   });
 });

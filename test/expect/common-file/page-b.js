@@ -1,23 +1,22 @@
-webpackJsonp([1],[
-/* 0 */
-/***/ function(module, exports, __webpack_require__) {
+webpackJsonp([0],[
+/* 0 */,
+/* 1 */
+/***/ (function(module, exports) {
 
-	'use strict';
 
-	__webpack_require__(1);
+console.log('fn-b');
 
-	__webpack_require__(2);
+/***/ }),
+/* 2 */,
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	console.log('b');
 
-/***/ },
-/* 1 */,
-/* 2 */
-/***/ function(module, exports) {
+__webpack_require__(0);
 
-	'use strict';
+__webpack_require__(1);
 
-	console.log('fn-b');
+console.log('b');
 
-/***/ }
-]);
+/***/ })
+],[3]);

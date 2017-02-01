@@ -5,6 +5,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import babelrc from './babelrc';
+import loaders from './loaders';
 import merge from './merge';
 import mixEntry from './mixEntry';
 import CssEntryPlugin from './CssEntryPlugin';
@@ -16,7 +17,6 @@ function base(args) {
   const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
 
   return {
-    babel: babelrc,
     context: args.cwd,
     output: {
       path: join(args.cwd, './dist/'),
@@ -25,76 +25,46 @@ function base(args) {
     },
     devtool: args.devtool,
     resolve: {
-      modulesDirectories: ['node_modules', join(__dirname, '../node_modules')],
-      extensions: ['', '.js', '.jsx'],
+      modules: ['node_modules', join(__dirname, '../node_modules')],
+      extensions: ['*', '.js', '.jsx'],
     },
     resolveLoader: {
-      modulesDirectories: ['node_modules', join(__dirname, '../node_modules')],
+      modules: ['node_modules', join(__dirname, '../node_modules')],
     },
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
     module: {
-      loaders: [{
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: babelrc,
-      }, {
-        test: /\.jsx$/,
-        loader: 'babel',
-        query: babelrc,
-      }, {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'css?sourceMap&-restructuring!postcss'
-        ),
-      }, {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'css?sourceMap!postcss!less?sourceMap'
-        ),
-      }, {
-        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=application/font-woff'
-      }, {
-        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=application/font-woff'
-      }, {
-        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=application/octet-stream'
-      }, {
-        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file'
-      }, {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&minetype=image/svg+xml'
-      }, {
-        test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/i,
-        loader: 'url?limit=10000'
-      }, {
-        test: /\.json$/,
-        loader: 'json'
-      }, {
-        test: /\.atpl$/,
-        loader: 'atpl'
-      }]
+      rules: loaders()
     },
-    postcss: [require('autoprefixer')],
     plugins: [
-      new ExtractTextPlugin(cssFileName, {
+      new ExtractTextPlugin({
+        filename: cssFileName,
         disable: false,
         allChunks: true,
       }),
-      new webpack.optimize.OccurenceOrderPlugin(),
       new CssEntryPlugin()
     ],
+    performance: {
+      hints: args.compress ? 'warning' : false,
+      maxAssetSize: 400000,
+      maxEntrypointSize: 400000
+    },
+    // More options
+    babel: babelrc(),
+    postcss: {
+      plugins: [
+        require('autoprefixer')({
+          browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4']
+        })
+      ]
+    }
   };
 }
 
 function npm3Hack(cfg) {
   var doolPath = join(__dirname, '../..');
   if (~doolPath.indexOf('dool')) {
-    cfg.resolveLoader.modulesDirectories.push(doolPath);
+    cfg.resolveLoader.modules.push(doolPath);
   }
   return cfg;
 }
@@ -113,24 +83,21 @@ export default function getConfig(args) {
 
   // Config if no --no-compress.
   if (args.compress) {
-    cfg.plugins = [...cfg.plugins,
+    cfg.plugins = [
+      ...cfg.plugins,
       new webpack.optimize.UglifyJsPlugin({
-        output: {
-          ascii_only: true,
-        },
-        compress: {
-          warnings: false,
-        },
-      }),
+        sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
+      })
     ];
   }
 
   cfg.plugins = [
     ...cfg.plugins,
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-    }),
-    new webpack.optimize.DedupePlugin()
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+      }
+    })
   ];
 
   // Output map.json if hash.
@@ -143,6 +110,35 @@ export default function getConfig(args) {
   }
 
   cfg = merge(cfg, join(args.cwd, args.config || 'webpack.config.js'), webpack);
-  
-  return Array.isArray(cfg) ? cfg : [cfg];
+
+  const cfgs = Array.isArray(cfg) ? cfg : [cfg];
+  cfgs.forEach(cfg => {
+    for (const rule of cfg.module.rules) {
+      if (rule.key) {
+        delete rule.key;
+      }
+    }
+    // More options
+    const options = {
+      context: args.cwd
+    }
+    if (cfg.babel) {
+      options.babel = cfg.babel;
+      delete cfg.babel;
+    }
+    if (cfg.postcss) {
+      options.postcss = cfg.postcss;
+      delete cfg.postcss;
+    }
+    cfg.plugins = [
+      ...cfg.plugins,
+      new webpack.LoaderOptionsPlugin({
+        debug: !args.compress,
+        minimize: args.compress,
+        options: options
+      })
+    ];
+  });
+
+  return cfgs;
 }
