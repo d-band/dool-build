@@ -3,7 +3,7 @@
 var join = require('path').join;
 var fs = require('fs');
 var glob = require('glob');
-var build = require('../lib/build');
+var build = require('../src/build');
 var assign = require('object-assign');
 var expect = require('chai').expect;
 
