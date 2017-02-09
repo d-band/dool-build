@@ -3,11 +3,11 @@
 import glob from 'glob';
 import path from 'path';
 
-function formatName(name) {
+function formatName (name) {
   return name.replace(/^\.\//g, '');
 }
 
-export default function(files, entry, args) {
+export default function (files, entry, args) {
   let newEntry = entry || {};
 
   if (typeof newEntry === 'string' || Array.isArray(newEntry)) {
@@ -17,11 +17,11 @@ export default function(files, entry, args) {
   }
 
   if (Array.isArray(files)) {
-    files.forEach(function(output) {
+    files.forEach(function (output) {
       [...glob.sync(output, {
         cwd: args.cwd,
         nodir: true
-      })].forEach(function(item) {
+      })].forEach(function (item) {
         let key = null;
         let ext = path.extname(item);
         if (ext === '.css' || ext === '.less') {

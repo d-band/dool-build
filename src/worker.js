@@ -9,15 +9,15 @@ import config from './config';
 import progress from './progress';
 
 if (process.send) {
-  process.on('message', function(msg) {
+  process.on('message', function (msg) {
     const cfg = config(msg.args)[msg.index];
-    run(msg.args, [cfg], function(err, stats) {
+    run(msg.args, [cfg], function (err, stats) {
       process.send(err ? red(err.stack) : stats);
     });
   });
 }
 
-export default function run(args, cfgs, callback) {
+export default function run (args, cfgs, callback) {
   // add progress plugin
   cfgs.forEach(cfg => {
     cfg.plugins.push(progress());
@@ -25,7 +25,7 @@ export default function run(args, cfgs, callback) {
   const compiler = webpack(cfgs);
 
   // Hack: remove extract-text-webpack-plugin log
-  args.verbose || compiler.plugin('done', function(stats) {
+  args.verbose || compiler.plugin('done', function (stats) {
     stats.stats.forEach((stat) => {
       stat.compilation.children = stat.compilation.children.filter((child) => {
         return child.name !== 'extract-text-webpack-plugin';
@@ -33,16 +33,16 @@ export default function run(args, cfgs, callback) {
     });
   });
 
-  function doneHandler(err, stats) {
+  function doneHandler (err, stats) {
     if (err) {
-      process.on('exit', function() {
+      process.on('exit', function () {
         process.exit(2);
       });
       return callback && callback(err);
     }
 
     if (stats.hasErrors()) {
-      process.on('exit', function() {
+      process.on('exit', function () {
         process.exit(1);
       });
     }

@@ -54,4 +54,4 @@ export default () => {
     test: /\.atpl$/,
     loader: 'atpl-loader'
   }];
-}
+};

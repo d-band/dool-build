@@ -18,4 +18,4 @@ export default () => {
       require.resolve('babel-plugin-add-module-exports')
     ]
   };
-}
+};

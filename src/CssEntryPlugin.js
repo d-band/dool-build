@@ -1,8 +1,7 @@
 'use strict';
 
 class CssEntryPlugin {
-  constructor() {}
-  apply(compiler) {
+  apply (compiler) {
     compiler.plugin('emit', (compilation, callback) => {
       compilation.chunks.filter(chunk => {
         return /\.css$/i.test(chunk.name);

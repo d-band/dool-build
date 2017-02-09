@@ -3,14 +3,14 @@
 import { green, cyan } from './color';
 import { ProgressPlugin } from 'webpack';
 
-export default function() {
+export default function () {
   const total = 20;
   const stream = process.stderr;
   const fmt = `${green('[:bar]')} :percent ${cyan(':msg')}`;
 
-  return new ProgressPlugin(function handler(percent, msg) {
+  return new ProgressPlugin(function handler (percent, msg) {
     if (!stream.isTTY) return;
-    
+
     let beforeLen = Math.floor(percent * total);
     let afterLen = total - beforeLen;
     let before = Array(beforeLen).join('=');

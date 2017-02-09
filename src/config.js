@@ -10,7 +10,7 @@ import merge from './merge';
 import mixEntry from './mixEntry';
 import CssEntryPlugin from './CssEntryPlugin';
 
-function base(args) {
+function base (args) {
   const pkg = require(join(args.cwd, 'package.json'));
 
   const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
@@ -21,15 +21,15 @@ function base(args) {
     output: {
       path: join(args.cwd, './dist/'),
       filename: jsFileName,
-      chunkFilename: jsFileName,
+      chunkFilename: jsFileName
     },
     devtool: args.devtool,
     resolve: {
       modules: ['node_modules', join(__dirname, '../node_modules')],
-      extensions: ['*', '.js', '.jsx'],
+      extensions: ['*', '.js', '.jsx']
     },
     resolveLoader: {
-      modules: ['node_modules', join(__dirname, '../node_modules')],
+      modules: ['node_modules', join(__dirname, '../node_modules')]
     },
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
@@ -40,7 +40,7 @@ function base(args) {
       new ExtractTextPlugin({
         filename: cssFileName,
         disable: false,
-        allChunks: true,
+        allChunks: true
       }),
       new CssEntryPlugin()
     ],
@@ -61,7 +61,7 @@ function base(args) {
   };
 }
 
-function npm3Hack(cfg) {
+function npm3Hack (cfg) {
   var doolPath = join(__dirname, '../..');
   if (~doolPath.indexOf('dool')) {
     cfg.resolveLoader.modules.push(doolPath);
@@ -69,7 +69,7 @@ function npm3Hack(cfg) {
   return cfg;
 }
 
-export default function getConfig(args) {
+export default function getConfig (args) {
   let cfg = base(args);
 
   cfg = npm3Hack(cfg);
@@ -105,7 +105,7 @@ export default function getConfig(args) {
     cfg.output.filename = cfg.output.chunkFilename = '[name]-[chunkhash].js';
     cfg.plugins = [
       ...cfg.plugins,
-      require('map-json-webpack-plugin')(),
+      require('map-json-webpack-plugin')()
     ];
   }
 
@@ -113,15 +113,15 @@ export default function getConfig(args) {
 
   const cfgs = Array.isArray(cfg) ? cfg : [cfg];
   cfgs.forEach(cfg => {
-    for (const rule of cfg.module.rules) {
+    cfg.module.rules.forEach(rule => {
       if (rule.key) {
         delete rule.key;
       }
-    }
+    });
     // More options
     const options = {
       context: args.cwd
-    }
+    };
     if (cfg.babel) {
       options.babel = cfg.babel;
       delete cfg.babel;

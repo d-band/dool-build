@@ -6,17 +6,17 @@ import config from './config';
 import worker from './worker';
 import Pool from 'fork-pool';
 
-function info(str) {
+function info (str) {
   console.log(green('\nBuild completed  🎉\n'));
   console.log(str);
 }
 
-function error(str) {
+function error (str) {
   console.error(red('\nBuild failed  💥\n'));
   console.error(red(str));
 }
 
-export default function(args, callback) {
+export default function (args, callback) {
   // Get config.
   let cfgs = config(args);
 
@@ -33,17 +33,18 @@ export default function(args, callback) {
       pool.enqueue({
         index: i,
         args: args
-      }, function(err, res) {
+      }, function (err, res) {
+        if (err) return;
         output.push(res.stdout);
       });
     }
 
-    pool.drain(function() {
+    pool.drain(function () {
       info(output.join('\n'));
       callback && callback();
     });
   } else {
-    worker(args, cfgs, function(err, stats) {
+    worker(args, cfgs, function (err, stats) {
       err ? error(err.stack) : info(stats);
       callback && callback(err);
     });

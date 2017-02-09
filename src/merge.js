@@ -7,7 +7,7 @@ import { existsSync } from 'fs';
  * @param baseCfg {Object}
  * @param customCfg {String}
  */
-export default function merge(baseCfg, customCfg) {
+export default function merge (baseCfg, customCfg) {
   if (!existsSync(customCfg)) {
     return baseCfg;
   }
