@@ -1,43 +1,43 @@
 'use strict';
 
-var join = require('path').join;
-var fs = require('fs');
-var glob = require('glob');
-var build = require('../src/build');
-var assign = require('object-assign');
-var expect = require('chai').expect;
+import { join } from 'path';
+import fs from 'fs';
+import glob from 'glob';
+import build from '../src/build';
+import assign from 'object-assign';
+import { expect } from 'chai';
 
 function assert (actualDir, _expect) {
-  var expectDir = join(__dirname, 'expect', _expect);
-  var actualFiles = glob.sync('**/*', {
+  const expectDir = join(__dirname, 'expect', _expect);
+  const actualFiles = glob.sync('**/*', {
     cwd: actualDir,
     nodir: true
   });
 
-  actualFiles.forEach(function (file) {
-    var actualFile = join(actualDir, file);
-    var expectFile = join(expectDir, file);
+  actualFiles.forEach(file => {
+    const actualFile = join(actualDir, file);
+    const expectFile = join(expectDir, file);
 
     if (process.env.GEN_EXPECT) {
       fs.writeFileSync(expectFile, fs.readFileSync(actualFile));
     }
 
-    var actualData = fs.readFileSync(actualFile, 'utf-8');
-    var expectData = fs.readFileSync(expectFile, 'utf-8');
+    const actualData = fs.readFileSync(actualFile, 'utf-8');
+    const expectData = fs.readFileSync(expectFile, 'utf-8');
     expect(actualData).to.equal(expectData);
   });
 }
 
 function testBuild (args, fixture, done) {
-  var cwd = join(__dirname, 'fixtures', fixture);
-  var outputPath = join(cwd, 'dist');
-  var defaultConfig = {
+  const cwd = join(__dirname, 'fixtures', fixture);
+  const outputPath = join(cwd, 'dist');
+  const defaultConfig = {
     cwd: cwd,
     compress: false,
     outputPath: outputPath
   };
 
-  build(assign({}, defaultConfig, args), function (err) {
+  build(assign({}, defaultConfig, args), err => {
     assert(outputPath, fixture);
     done(err);
   });
@@ -46,78 +46,78 @@ function testBuild (args, fixture, done) {
 describe('src/build', function () {
   this.timeout(0);
 
-  it('should support base64', function (done) {
+  it('should support base64', done => {
     testBuild({}, 'base64', done);
   });
-  it('should support cluster', function (done) {
+  it('should support cluster', done => {
     testBuild({
       cluster: true
     }, 'cluster', done);
   });
-  it('should support common file', function (done) {
+  it('should support common file', done => {
     testBuild({}, 'common-file', done);
   });
-  it('should support custom loader', function (done) {
+  it('should support custom loader', done => {
     testBuild({}, 'custom-loader', done);
   });
-  it('should support custom path', function (done) {
+  it('should support custom path', done => {
     testBuild({
       hash: true
     }, 'custom-path', done);
   });
-  it('should support define', function (done) {
+  it('should support define', done => {
     process.env.NODE_ENV = 'debug';
     testBuild({}, 'define', done);
   });
-  it('should support es6', function (done) {
+  it('should support es6', done => {
     testBuild({}, 'es6', done);
   });
-  it('should support global', function (done) {
+  it('should support global', done => {
     testBuild({}, 'global', done);
   });
-  it('should support less', function (done) {
+  it('should support less', done => {
     testBuild({}, 'less', done);
   });
-  it('should support load on demand', function (done) {
+  it('should support load on demand', done => {
     testBuild({}, 'load-on-demand', done);
   });
-  it('should support map hash', function (done) {
+  it('should support map hash', done => {
     testBuild({
       hash: true
     }, 'map-hash', done);
   });
-  it('should support compress default', function (done) {
+  it('should support compress default', done => {
     testBuild({
       compress: true
     }, 'compress', done);
   });
-  it('should support sourcemap', function (done) {
+  it('should support sourcemap', done => {
     testBuild({
       compress: true,
       devtool: 'sourcemap'
     }, 'sourcemap', done);
   });
-  it('should support mix entry and files', function (done) {
+  it('should support mix entry and files', done => {
     testBuild({}, 'mix-entry', done);
   });
-  it('should support react', function (done) {
+  it('should support react', done => {
     testBuild({}, 'react', done);
   });
-  it('should throw webpack missing error', function (done) {
-    testBuild({}, 'missing', function (errors) {
+  it('should throw webpack missing error', done => {
+    testBuild({}, 'missing', errors => {
       done();
     });
   });
-  it('should throw error', function (done) {
-    console.error = process.exit = function () {};
+  it('should throw error', done => {
+    console.error = process.exit = () => {};
     testBuild({}, 'error', function (err) {
       expect(err).to.be.an('error');
       done();
     });
   });
-  it('should throw merge error', function (done) {
+  it('should throw merge error', done => {
     try {
-      console.error = process.exit = function () {};
+      console.error = process.exit = () => {};
       testBuild({}, 'merge-error');
     } catch (e) {
       expect(e).to.be.an('error');

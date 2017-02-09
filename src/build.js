@@ -16,7 +16,7 @@ function error (str) {
   console.error(red(str));
 }
 
-export default function (args, callback) {
+export default (args, callback) => {
   // Get config.
   let cfgs = config(args);
 
@@ -33,20 +33,20 @@ export default function (args, callback) {
       pool.enqueue({
         index: i,
         args: args
-      }, function (err, res) {
+      }, (err, res) => {
         if (err) return;
         output.push(res.stdout);
       });
     }
 
-    pool.drain(function () {
+    pool.drain(() => {
       info(output.join('\n'));
       callback && callback();
     });
   } else {
-    worker(args, cfgs, function (err, stats) {
+    worker(args, cfgs, (err, stats) => {
       err ? error(err.stack) : info(stats);
       callback && callback(err);
     });
   }
-}
+};

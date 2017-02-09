@@ -3,20 +3,20 @@
 import { green, cyan } from './color';
 import { ProgressPlugin } from 'webpack';
 
-export default function () {
+export default () => {
   const total = 20;
   const stream = process.stderr;
   const fmt = `${green('[:bar]')} :percent ${cyan(':msg')}`;
 
-  return new ProgressPlugin(function handler (percent, msg) {
+  return new ProgressPlugin((percent, msg) => {
     if (!stream.isTTY) return;
 
-    let beforeLen = Math.floor(percent * total);
-    let afterLen = total - beforeLen;
-    let before = Array(beforeLen).join('=');
-    let after = Array(afterLen).join(' ');
+    const beforeLen = Math.floor(percent * total);
+    const afterLen = total - beforeLen;
+    const before = Array(beforeLen).join('=');
+    const after = Array(afterLen).join(' ');
 
-    let str = fmt
+    const str = fmt
       .replace(':bar', before + after)
       .replace(':percent', (percent * 99).toFixed(0) + '%')
       .replace(':msg', msg.substring(0, stream.columns - 27));
@@ -29,4 +29,4 @@ export default function () {
       stream.cursorTo(0);
     }
   });
-}
+};

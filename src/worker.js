@@ -9,9 +9,9 @@ import config from './config';
 import progress from './progress';
 
 if (process.send) {
-  process.on('message', function (msg) {
+  process.on('message', msg => {
     const cfg = config(msg.args)[msg.index];
-    run(msg.args, [cfg], function (err, stats) {
+    run(msg.args, [cfg], (err, stats) => {
       process.send(err ? red(err.stack) : stats);
     });
   });
@@ -25,7 +25,7 @@ export default function run (args, cfgs, callback) {
   const compiler = webpack(cfgs);
 
   // Hack: remove extract-text-webpack-plugin log
-  args.verbose || compiler.plugin('done', function (stats) {
+  args.verbose || compiler.plugin('done', stats => {
     stats.stats.forEach((stat) => {
       stat.compilation.children = stat.compilation.children.filter((child) => {
         return child.name !== 'extract-text-webpack-plugin';
@@ -35,16 +35,12 @@ export default function run (args, cfgs, callback) {
 
   function doneHandler (err, stats) {
     if (err) {
-      process.on('exit', function () {
-        process.exit(2);
-      });
+      process.on('exit', () => process.exit(2));
       return callback && callback(err);
     }
 
     if (stats.hasErrors()) {
-      process.on('exit', function () {
-        process.exit(1);
-      });
+      process.on('exit', () => process.exit(1));
     }
 
     callback && callback(null, stats.toString({
