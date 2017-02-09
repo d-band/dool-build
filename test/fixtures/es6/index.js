@@ -21,3 +21,10 @@ console.log(B);
 console.log(require('./a'));
 
 new User();
+
+// es2016
+let cubed = 2 ** 3;
+// es2017
+async function foo() {
+  await bar();
+}
