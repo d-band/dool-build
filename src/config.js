@@ -114,9 +114,7 @@ export default function getConfig (args) {
   const cfgs = Array.isArray(cfg) ? cfg : [cfg];
   cfgs.forEach(cfg => {
     cfg.module.rules.forEach(rule => {
-      if (rule.key) {
-        delete rule.key;
-      }
+      if (rule.key) delete rule.key;
     });
     // More options
     const options = {
