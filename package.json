@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "2.0.0-beta.16",
+  "version": "2.0.0-rc.1",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
