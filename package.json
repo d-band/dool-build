@@ -1,6 +1,6 @@
 {
   "name": "dool-build",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "d-band tool & dev tool",
   "bin": {
     "dool-build": "cli.js"
@@ -44,7 +44,7 @@
     "glob": "^7.1.0",
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
-    "less-loader": "^2.2.3",
+    "less-loader": "^3.0.0",
     "map-json-webpack-plugin": "^1.1.0",
     "postcss-loader": "^1.0.0",
     "rimraf": "^2.5.4",

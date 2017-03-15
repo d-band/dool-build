@@ -3,5 +3,5 @@
 module.exports = function(source) {
   return source
     .replace('bar', 'boo')
-    .replace('foo', 'foo, modified by ./loader');
+    .replace('foooooo', 'foooooo, modified by ./loader');
 };

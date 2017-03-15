@@ -1,3 +1,3 @@
 require('./a.css');
 
-document.getElementById('content').innerHTML = 'foo';
+document.getElementById('content').innerHTML = 'foooooo';
