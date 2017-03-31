@@ -74,7 +74,7 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var A = 'A';
-/* harmony default export */ __webpack_exports__["default"] = A;
+/* harmony default export */ __webpack_exports__["default"] = (A);
 
 /***/ }),
 /* 1 */
@@ -83,7 +83,7 @@ var A = 'A';
 "use strict";
 
 var B = 'b';
-/* harmony default export */ __webpack_exports__["a"] = B;
+/* harmony default export */ __webpack_exports__["a"] = (B);
 
 /***/ }),
 /* 2 */
