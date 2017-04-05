@@ -1,12 +1,12 @@
 'use strict';
 
-// Fix https://github.com/postcss/postcss#nodejs-010-and-the-promise-api
-require('es6-promise').polyfill();
-
 import { red } from './color';
 import webpack from 'webpack';
 import config from './config';
 import progress from './progress';
+
+// Fix https://github.com/postcss/postcss#nodejs-010-and-the-promise-api
+require('es6-promise').polyfill();
 
 if (process.send) {
   process.on('message', msg => {
