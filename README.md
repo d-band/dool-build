@@ -1,6 +1,8 @@
 dool-build
 ===
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/d-band/dool-build.svg)](https://greenkeeper.io/)
+
 > d-band tool & dev tool based on webpack, changed from [atool](https://github.com/ant-tool)
 
 
