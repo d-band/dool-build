@@ -6,6 +6,7 @@ var program = require('commander');
 program
   .version(require('./package').version, '-v, --version')
   .option('-o, --output-path <path>', 'output path')
+  .option('-P, --public-path <path>', 'public path')
   .option('-w, --watch [delay]', 'watch file changes and rebuild')
   .option('--hash', 'build with hash and output map.json')
   .option('--devtool <devtool>', 'sourcemap generate method, default is null')

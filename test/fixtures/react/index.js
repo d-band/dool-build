@@ -1,7 +1,9 @@
-var HelloMessage = React.createClass({
-  render: function() {
-    return <div>Hello {this.props.name}</div>;
-  }
-});
+import React from 'react';
+import { render } from 'react-dom';
 
-ReactDOM.render(<HelloMessage name="John" />, mountNode);
+const HelloMessage = (props) => (<div>Hello {props.name}</div>);
+
+render(
+  <HelloMessage name="John" />,
+  document.getElementById('root')
+);

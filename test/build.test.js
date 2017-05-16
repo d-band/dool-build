@@ -47,7 +47,7 @@ describe('src/build', function () {
   this.timeout(0);
 
   it('should support base64', done => {
-    testBuild({}, 'base64', done);
+    testBuild({ publicPath: '/foo/' }, 'base64', done);
   });
   it('should support cluster', done => {
     testBuild({

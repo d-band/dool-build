@@ -2,19 +2,15 @@
 
 import { join } from 'path';
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-import babelrc from './babelrc';
 import loaders from './loaders';
+import plugins from './plugins';
 import merge from './merge';
 import mixEntry from './mixEntry';
-import CssEntryPlugin from './CssEntryPlugin';
 
 function base (args) {
   const pkg = require(join(args.cwd, 'package.json'));
-
   const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
-  const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
 
   return {
     context: args.cwd,
@@ -34,29 +30,13 @@ function base (args) {
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
     module: {
-      rules: loaders()
+      rules: loaders(args.compress)
     },
-    plugins: [
-      new ExtractTextPlugin({
-        filename: cssFileName,
-        disable: false,
-        allChunks: true
-      }),
-      new CssEntryPlugin()
-    ],
+    plugins: plugins(args),
     performance: {
       hints: args.compress ? 'warning' : false,
       maxAssetSize: 400000,
       maxEntrypointSize: 400000
-    },
-    // More options
-    babel: babelrc(),
-    postcss: {
-      plugins: [
-        require('autoprefixer')({
-          browsers: ['last 2 versions', 'Firefox ESR', '> 1%', 'ie >= 8', 'iOS >= 8', 'Android >= 4']
-        })
-      ]
     }
   };
 }
@@ -74,31 +54,13 @@ export default function getConfig (args) {
 
   cfg = npm3Hack(cfg);
 
-  cfg.plugins = cfg.plugins || [];
-
-  // Config outputPath.
+  // Config outputPath & publicPath.
   if (args.outputPath) {
     cfg.output.path = args.outputPath;
   }
-
-  // Config if no --no-compress.
-  if (args.compress) {
-    cfg.plugins = [
-      ...cfg.plugins,
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
-      })
-    ];
+  if (args.publicPath) {
+    cfg.output.publicPath = args.publicPath;
   }
-
-  cfg.plugins = [
-    ...cfg.plugins,
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
-      }
-    })
-  ];
 
   // Output map.json if hash.
   if (args.hash) {
@@ -120,14 +82,6 @@ export default function getConfig (args) {
     const options = {
       context: args.cwd
     };
-    if (cfg.babel) {
-      options.babel = cfg.babel;
-      delete cfg.babel;
-    }
-    if (cfg.postcss) {
-      options.postcss = cfg.postcss;
-      delete cfg.postcss;
-    }
     cfg.plugins = [
       ...cfg.plugins,
       new webpack.LoaderOptionsPlugin({
