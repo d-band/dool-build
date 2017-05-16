@@ -36,21 +36,21 @@ export default (args) => {
     key: 'js',
     test: /\.js$/,
     exclude: /node_modules/,
-    loader: babel
+    ...babel
   }, {
     key: 'jsx',
     test: /\.jsx$/,
-    loader: babel
+    ...babel
   }, {
     key: 'css',
     test: /\.css$/,
-    loader: args.extract ? ExtractTextPlugin.extract({
+    use: args.extract ? ExtractTextPlugin.extract({
       use: [css, postcss]
     }) : [css, postcss]
   }, {
     key: 'less',
     test: /\.less$/,
-    loader: args.extract ? ExtractTextPlugin.extract({
+    use: args.extract ? ExtractTextPlugin.extract({
       use: [css, postcss, less]
     }) : [css, postcss, less]
   }, {
