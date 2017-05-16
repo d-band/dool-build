@@ -33,6 +33,7 @@ function testBuild (args, fixture, done) {
   const outputPath = join(cwd, 'dist');
   const defaultConfig = {
     cwd: cwd,
+    extract: true,
     compress: false,
     outputPath: outputPath
   };

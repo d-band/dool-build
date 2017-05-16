@@ -13,13 +13,15 @@ export default (args) => {
       }
     })
   ];
-  if (args.compress) {
-    const name = args.hash ? '[name]-[chunkhash].css' : '[name].css';
+  if (args.extract) {
+    const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
     plugins.push(new ExtractTextPlugin({
-      filename: name,
+      filename: cssFileName,
       disable: false,
       allChunks: true
     }));
+  }
+  if (args.compress) {
     plugins.push(new webpack.optimize.UglifyJsPlugin({
       sourceMap: args.devtool && /source(map|-map)/.test(args.devtool)
     }));

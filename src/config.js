@@ -11,7 +11,6 @@ import mixEntry from './mixEntry';
 function base (args) {
   const pkg = require(join(args.cwd, 'package.json'));
   const jsFileName = args.hash ? '[name]-[chunkhash].js' : '[name].js';
-
   return {
     context: args.cwd,
     output: {
@@ -30,7 +29,7 @@ function base (args) {
     entry: mixEntry(pkg.files, pkg.entry, args),
     externals: pkg.externals,
     module: {
-      rules: loaders(args.compress)
+      rules: loaders(args)
     },
     plugins: plugins(args),
     performance: {

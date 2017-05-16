@@ -3,12 +3,12 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import babelrc from './babelrc';
 
-export default (isProd) => {
+export default (args) => {
   const css = {
     loader: 'css-loader',
     options: {
       sourceMap: true,
-      minimize: isProd
+      minimize: args.compress
     }
   };
   const postcss = {
@@ -44,14 +44,14 @@ export default (isProd) => {
   }, {
     key: 'css',
     test: /\.css$/,
-    loader: isProd ? ExtractTextPlugin.extract({
+    loader: args.extract ? ExtractTextPlugin.extract({
       use: [css, postcss]
     }) : [css, postcss]
   }, {
     key: 'less',
     test: /\.less$/,
-    loader: isProd ? ExtractTextPlugin.extract({
-      use: [css, postcss]
+    loader: args.extract ? ExtractTextPlugin.extract({
+      use: [css, postcss, less]
     }) : [css, postcss, less]
   }, {
     key: 'font',

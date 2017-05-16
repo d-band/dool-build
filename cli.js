@@ -12,6 +12,7 @@ program
   .option('--devtool <devtool>', 'sourcemap generate method, default is null')
   .option('--config <path>', 'custom config path, default is webpack.config.js')
   .option('--no-compress','build without compress')
+  .option('--no-extract','build without extract')
   .option('--cluster', 'run in multi process.')
   .option('--verbose', 'show more details.')
   .parse(process.argv);
