@@ -6,7 +6,6 @@ import CssEntryPlugin from './CssEntryPlugin';
 
 export default (args) => {
   const plugins = [
-    new CssEntryPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
@@ -14,9 +13,17 @@ export default (args) => {
     })
   ];
   if (args.extract) {
-    const cssFileName = args.hash ? '[name]-[chunkhash].css' : '[name].css';
+    plugins.push(new CssEntryPlugin());
+    const cssFile = (getPath) => {
+      const name = getPath('[name]').replace(/\.css$/, '');
+      if (args.hash) {
+        return `${name}-${getPath('[chunkhash]')}.css`;
+      } else {
+        return `${name}.css`;
+      }
+    };
     plugins.push(new ExtractTextPlugin({
-      filename: cssFileName,
+      filename: cssFile,
       disable: false,
       allChunks: true
     }));

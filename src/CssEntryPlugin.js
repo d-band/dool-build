@@ -6,25 +6,13 @@ class CssEntryPlugin {
       compilation.chunks.filter(chunk => {
         return /\.css$/i.test(chunk.name);
       }).forEach(chunk => {
-        const oldName = chunk.name;
-        const newName = oldName.replace(/\.css$/i, '');
-
+        // remove unused js files
         chunk.files = chunk.files.filter(file => {
-          const isCss = /\.css(|\.map)$/i.test(file);
-          if (!isCss) {
+          const isJS = /\.js(|\.map)$/i.test(file);
+          if (isJS) {
             delete compilation.assets[file];
           }
-          return isCss;
-        }).map(oldFile => {
-          // do not handle map file
-          if (/\.map$/i.test(oldFile)) return oldFile;
-
-          const newFile = oldFile.replace(oldName, newName);
-          // change css assets name
-          const tmp = compilation.assets[oldFile];
-          compilation.assets[newFile] = tmp;
-          delete compilation.assets[oldFile];
-          return newFile;
+          return isJS;
         });
       });
       callback();
