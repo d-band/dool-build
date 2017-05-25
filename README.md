@@ -1,16 +1,14 @@
 dool-build
 ===
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/d-band/dool-build.svg)](https://greenkeeper.io/)
-
-> d-band tool & dev tool based on webpack, changed from [atool](https://github.com/ant-tool)
-
-
 [![NPM version](https://img.shields.io/npm/v/dool-build.svg)](https://www.npmjs.com/package/dool-build)
 [![NPM downloads](https://img.shields.io/npm/dm/dool-build.svg)](https://www.npmjs.com/package/dool-build)
 [![Build Status](https://travis-ci.org/d-band/dool-build.svg?branch=master)](https://travis-ci.org/d-band/dool-build)
 [![Coverage Status](https://coveralls.io/repos/github/d-band/dool-build/badge.svg?branch=master)](https://coveralls.io/github/d-band/dool-build?branch=master)
 [![Dependency Status](https://david-dm.org/d-band/dool-build.svg)](https://david-dm.org/d-band/dool-build)
+[![Greenkeeper badge](https://badges.greenkeeper.io/d-band/dool-build.svg)](https://greenkeeper.io/)
+
+> d-band tool & dev tool based on webpack, changed from [atool](https://github.com/ant-tool)
 
 ## Install
 
