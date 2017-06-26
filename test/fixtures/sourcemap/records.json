@@ -1,0 +1,44 @@
+{
+  "extract-text-webpack-plugin": [
+    {
+      "modules": {
+        "byIdentifier": {
+          "../../../node_modules/css-loader/index.js?{\"sourceMap\":true,\"minimize\":true}!../../../node_modules/postcss-loader/lib/index.js?{\"sourceMap\":true}!../../../node_modules/less-loader/dist/index.js?{\"sourceMap\":true}!index.less": 0,
+          "../../../node_modules/css-loader/lib/css-base.js": 1
+        },
+        "usedIds": {
+          "0": 0,
+          "1": 1
+        }
+      },
+      "chunks": {
+        "byName": {},
+        "byBlocks": {},
+        "usedIds": {
+          "1": 1
+        }
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "../../../node_modules/babel-loader/lib/index.js??ref--0!index.js": 0,
+      "../../../node_modules/extract-text-webpack-plugin/loader.js??ref--3-0!../../../node_modules/css-loader/index.js??ref--3-1!../../../node_modules/postcss-loader/lib/index.js??ref--3-2!../../../node_modules/less-loader/dist/index.js??ref--3-3!index.less": 1
+    },
+    "usedIds": {
+      "0": 0,
+      "1": 1
+    }
+  },
+  "chunks": {
+    "byName": {
+      "index.css": 0,
+      "index": 1
+    },
+    "byBlocks": {},
+    "usedIds": {
+      "0": 0,
+      "1": 1
+    }
+  }
+}
