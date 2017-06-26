@@ -1,6 +1,6 @@
-const path = require('path');
+var WebpackMd5Hash = require('webpack-md5-hash');
 
 module.exports = function(cfg) {
-  cfg.recordsPath = path.join(__dirname, 'records.json');
+  cfg.plugins.push(new WebpackMd5Hash());
   return cfg;
 }
