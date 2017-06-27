@@ -77,16 +77,11 @@ export default function getConfig (args) {
     cfg.module.rules.forEach(rule => {
       if (rule.key) delete rule.key;
     });
-    // More options
-    const options = {
-      context: args.cwd
-    };
     cfg.plugins = [
       ...cfg.plugins,
       new webpack.LoaderOptionsPlugin({
         debug: !args.compress,
-        minimize: args.compress,
-        options: options
+        minimize: args.compress
       })
     ];
   });
