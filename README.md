@@ -1,6 +1,9 @@
 dool-build
 ===
 
+**DEPRECATED: This library is deprecated, please use [dool](https://github.com/d-band/dool)**
+
+
 [![NPM version](https://img.shields.io/npm/v/dool-build.svg)](https://www.npmjs.com/package/dool-build)
 [![NPM downloads](https://img.shields.io/npm/dm/dool-build.svg)](https://www.npmjs.com/package/dool-build)
 [![Build Status](https://travis-ci.org/d-band/dool-build.svg?branch=master)](https://travis-ci.org/d-band/dool-build)
